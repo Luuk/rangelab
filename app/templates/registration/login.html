@@ -1,0 +1,29 @@
+{% extends "../app/base.html" %}
+
+{% block menulessContent %}
+    <div class="p-3 login-form mt-5">
+        <div class="mb-5">
+            <h1>Inloggen</h1>
+            <h2>SV Doelbewust</h2>
+        </div>
+        <form method="POST">
+            {{ form.non_field_errors }}
+            {% csrf_token %}
+            <div class="mb-1">
+                {{ form.username.errors }}
+                <input type="text" name="username" class="form-control" placeholder="Gebruikersnaam" required>
+            </div>
+            <div class="mb-3">
+                {{ form.password.errors }}
+                <input type="password" name="password" class="form-control" placeholder="Wachtwoord" required>
+            </div>
+            <div class="mb-3 col-auto">
+                <button type="submit" class="btn btn-primary">Inloggen</button>
+                <span class="form-text input-lg"><a href="#">Wachtwoord vergeten?</a></span>
+            </div>
+            <div class="form-text">
+                Nog geen account? <a href="#">Maak er een aan!</a>
+            </div>
+        </form>
+    </div>
+{% endblock menulessContent %}
