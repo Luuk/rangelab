@@ -23,26 +23,28 @@
 <body>
 {% if user.is_authenticated %}
     <div id="wrapper">
+        <div class="side-icons-bar">
+            <a href="/overview"><img class="side-icon {% if "overview" in request.path %}active-icon{% endif %}" src="{% static 'app/img/overview.svg' %}" alt=""></a>
+            <a href="/products"><img class="side-icon {% if "products" in request.path %}active-icon{% endif %}" src="{% static 'app/img/products.svg' %}" alt=""></a>
+            <a href="/members"><img class="side-icon {% if "members" in request.path %}active-icon{% endif %}" src="{% static 'app/img/members.svg' %}" alt=""></a>
+            <a href="{% url 'logout' %}"><img class="side-icon" src="{% static 'app/img/logout.svg' %}" alt=""></a>
+        </div>
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a href="#">
-                        Peter Janssen
-                    </a>
+                    Peter Janssen
                 </li>
                 <li class="sidebar-brand">
-                    <a href="#">
-                        SV Doelbewust
-                    </a>
+                    <b>SV Doelbewust</b>
                 </li>
                 <li>
-                    <a href="#" class="active">Overzicht</a>
+                    <a href="/overview" {% if "overview" in request.path %}class="active-item"{% endif %}>Overzicht</a>
                 </li>
                 <li>
-                    <a href="#">Producten</a>
+                    <a href="/products" {% if "products" in request.path %}class="active-item"{% endif %}>Producten</a>
                 </li>
                 <li>
-                    <a href="#">Leden</a>
+                    <a href="/members" {% if "members" in request.path %}class="active-item"{% endif %}>Leden</a>
                 </li>
                 <li>
                     <a href="{% url 'logout' %}">Uitloggen</a>
@@ -53,7 +55,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        <a href="#menu-toggle" id="menu-toggle"><img src="{% static 'app/img/hamburger.svg' %}" alt=""></a>
                         {% block content %}{% endblock content %}
                     </div>
                 </div>
