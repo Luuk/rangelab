@@ -25,14 +25,26 @@ body {
     padding: 10px 50px;
 }
 
-.btn-light {
-    background-color: #fff;
-    border-color: #EBECED !important;
-}
-
 .btn-primary:hover {
     background-color: var(--darkerBlue) !important;
     padding: 10px 50px;
+}
+
+.btn-secondary {
+    background-color: #fff;
+    padding: 10px 50px;
+    border-color: #EBECED !important;
+    color: var(--textDark);
+}
+
+.btn-secondary:hover {
+    background-color: var(--grey) !important;
+    color: var(--textDark);
+}
+
+.btn-light {
+    background-color: #fff;
+    border-color: #EBECED !important;
 }
 
 .input-group-text {
