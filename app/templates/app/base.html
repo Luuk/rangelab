@@ -18,33 +18,44 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'app/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css"/>
     <title>Rangelab</title>
 </head>
 <body>
 {% if user.is_authenticated %}
     <div id="wrapper">
         <div class="side-icons-bar">
-            <a href="/overview"><img class="side-icon {% if "overview" in request.path %}active-icon{% endif %}" src="{% static 'app/img/overview.svg' %}" alt=""></a>
-            <a href="/products"><img class="side-icon {% if "products" in request.path %}active-icon{% endif %}" src="{% static 'app/img/products.svg' %}" alt=""></a>
-            <a href="/members"><img class="side-icon {% if "members" in request.path %}active-icon{% endif %}" src="{% static 'app/img/members.svg' %}" alt=""></a>
+            <a href="{% url 'overview' %}"><img
+                    class="side-icon {% if "overview" in request.path %}active-icon{% endif %}" src="
+                    {% if "overview" in request.path %}{% static 'app/img/overview-active.svg' %} {% else %}{% static 'app/img/overview.svg' %}{% endif %}"
+                    alt=""></a>
+            <a href="{% url 'list_product' %}"><img
+                    class="side-icon {% if "products" in request.path %}active-icon{% endif %}" src="
+                    {% if "products" in request.path %}{% static 'app/img/products-active.svg' %} {% else %}{% static 'app/img/products.svg' %}{% endif %}"
+                    alt=""></a>
+            <a href="{% url 'members' %}"><img
+                    class="side-icon {% if "members" in request.path %}active-icon{% endif %}" src="
+                    {% if "members" in request.path %}{% static 'app/img/members-active.svg' %} {% else %}{% static 'app/img/members.svg' %}{% endif %}"
+                    alt=""></a>
             <a href="{% url 'logout' %}"><img class="side-icon" src="{% static 'app/img/logout.svg' %}" alt=""></a>
         </div>
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    Peter Janssen
+                    {{ request.user.username }}
                 </li>
                 <li class="sidebar-brand">
                     <b>SV Doelbewust</b>
                 </li>
                 <li>
-                    <a href="/overview" {% if "overview" in request.path %}class="active-item"{% endif %}>Overzicht</a>
+                    <a href="{% url 'overview' %}" {% if "overview" in request.path %}class="active-item"{% endif %}>Overzicht</a>
                 </li>
                 <li>
-                    <a href="/products" {% if "products" in request.path %}class="active-item"{% endif %}>Producten</a>
+                    <a href="{% url 'list_product' %}" {% if "products" in request.path %}class="active-item"{% endif %}>Producten</a>
                 </li>
                 <li>
-                    <a href="/members" {% if "members" in request.path %}class="active-item"{% endif %}>Leden</a>
+                    <a href="{% url 'members' %}"
+                       {% if "members" in request.path %}class="active-item"{% endif %}>Leden</a>
                 </li>
                 <li>
                     <a href="{% url 'logout' %}">Uitloggen</a>
@@ -69,6 +80,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js"></script>
 <script src="{% static 'app/base.js' %}"></script>
 </body>
 </html>

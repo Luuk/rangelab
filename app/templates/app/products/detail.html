@@ -1,0 +1,56 @@
+{% extends "../../app/base.html" %}
+
+{% block content %}
+    {% load static %}
+    {% load format_upload_url %}
+    <div class="pt-4">
+        <div class="row">
+            <div class="col-auto" style="margin-top: 6px;"><a href="{% url 'list_product' %}"><img
+                    src="{% static 'app/img/arrow-left.svg' %}"
+                    alt=""></a></div>
+            <div class="col-auto"><h2>Product Weergeven</h2></div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <br>
+                <div class="alert alert-primary" role="alert" style="width: 98%">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="detail-wrapper pt-5">
+        <div class="detail-image">
+            <img src="{% static product.picture|format_upload_url %}" alt="">
+        </div>
+        <div class="row pt-5">
+            <div class="col col-lg-2">
+                <b>Naam</b>
+                <br>
+                {{ product.name }}
+            </div>
+            <div class="col col-lg-2">
+                <b>Prijs</b>
+                <br>
+                €{{ product.price }}
+            </div>
+            <div class="col col-lg-2">
+                <b>Product code</b>
+                <br>
+                {{ product.code }}
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col col-lg-2">
+                <b>Omschrijving</b>
+                <br>
+                {{ product.description }}
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col col-lg-2">
+                <a href="{% url 'list_product' %}" class="btn btn-secondary">Ga terug</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

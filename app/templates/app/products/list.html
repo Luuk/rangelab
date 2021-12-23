@@ -1,0 +1,91 @@
+{% extends "../../app/base.html" %}
+
+{% block content %}
+    {% load static %}
+    {% load format_upload_url %}
+    <div class="pt-4">
+        <h2>Producten</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <br>
+                <div class="alert alert-primary" role="alert" style="width: 98%">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="datatable-wrapper">
+        <div class="row g-3 align-items-center">
+            <div class="col-sm">
+                <div class="input-group">
+                    <span class="input-group-text"><img
+                            src="{% static 'app/img/search.svg' %}"
+                            alt=""></span>
+                    <input type="text" id="searchbox" class="form-control" placeholder="Zoek producten...">
+                </div>
+            </div>
+            <div class="col-auto">
+                <span>
+                    <button type="button" class="btn btn-light"><img class="button-icon"
+                                                                     src="{% static 'app/img/trashbin.svg' %}"
+                                                                     alt="">Geselecteerde verwijderen
+                    </button>
+                    <span style="padding-left: 10px;"></span>
+                    <a href="{% url 'create_product' %}" type="button" class="btn btn-primary"><img class="button-icon"
+                                                                                                    src="{% static 'app/img/plus.svg' %}"
+                                                                                                    alt="">Toevoegen
+                    </a>
+                </span>
+            </div>
+        </div>
+        <br>
+        <table id="products-table" class="display hover" style="width:100%">
+            <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Naam</th>
+                <th>Omschrijving</th>
+                <th>Product code</th>
+                <th>Prijs</th>
+                <th>Acties</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td class="datatable-image">
+                        <div class="datatable-image-cropper">
+                            <img class="datatable-image" src="{% static product.picture|format_upload_url %}" alt="">
+                        </div>
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.code }}</td>
+                    <td>€{{ product.price }}</td>
+                    <td class="datatable-actions">
+                        <a href="{% url 'detail_product' id=product.id %}" type="button" class="btn btn-light"><img
+                                class="button-icon"
+                                src="{% static 'app/img/view.svg' %}" alt="">Weergeven
+                        </a>
+                        <span style="padding-left: 5px;"></span>
+                        <a href="{% url 'update_product' id=product.id %}" type="button" class="btn btn-light"><img
+                                class="button-icon"
+                                src="{% static 'app/img/edit.svg' %}" alt="">Wijzigen
+                        </a>
+                        <span style="padding-left: 5px;"></span>
+                        <button tabindex="0" class="btn btn-light popover-dismiss" role="button"
+                                data-bs-toggle="popover"
+                                data-bs-trigger="focus"
+                                data-bs-content="<a href='{% url 'delete_product' id=product.id %}' class='btn btn-danger'>Bevestigen</a>">
+                            <img
+                                    class="button-icon"
+                                    src="{% static 'app/img/trashbin.svg' %}"
+                                    alt="">Verwijderen
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
