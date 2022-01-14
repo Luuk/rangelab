@@ -1,14 +1,15 @@
-{% extends "../../app/base.html" %}
+{% extends "../base.html" %}
 
 {% block content %}
     {% load static %}
     {% load format_upload_url %}
-    <div class="pt-4">
+    <div class="pt-5">
         <div class="row">
-            <div class="col-auto" style="margin-top: 6px;"><a href="{% url 'list_product' %}"><img
-                    src="{% static 'app/img/arrow-left.svg' %}"
-                    alt=""></a></div>
-            <div class="col-auto"><h2>Product Wijzigen</h2></div>
+            <div class="col-auto" style="margin-top: 7px;"><a href="{% url 'list_product' %}">
+                <img height="15"
+                     src="{% static 'app/img/arrow-left.svg' %}"
+                     alt=""></a></div>
+            <div class="col-auto"><h2>Product Toevoegen</h2></div>
         </div>
         {% if messages %}
             {% for message in messages %}
@@ -20,17 +21,13 @@
         {% endif %}
     </div>
     <div class="detail-wrapper pt-5">
-        <form action="{% url 'update_product' id=product.id %}" method="POST" enctype="multipart/form-data">
+        <form action="{% url 'create_product' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
                 <div class="col col-lg-2">
-                    <div class="detail-image">
-                        <img src="{% static product.picture|format_upload_url %}" alt="">
-                    </div>
-                </div>
-                <div class="col col-lg-2">
                     <div class="form-group">
                         <label>Foto</label>
+                        <br>
                         <input type="file" accept="image/*" onchange="loadFile(event)" name="picture">
                         <div class="detail-image">
                             <img id="output"/>
@@ -42,20 +39,19 @@
                 <div class="col col-lg-2">
                     <div class="form-group">
                         <label>Naam</label>
-                        <input type="text" class="form-control" value="{{ product.name }}" name="name">
+                        <input type="text" class="form-control" name="name" value="{{ form_data.name }}">
                     </div>
                 </div>
                 <div class="col col-lg-2">
                     <div class="form-group">
                         <label>Prijs</label>
-                        <input type="number" class="form-control" value="{{ product.price }}" step=".01" name="price">
+                        <input type="number" class="form-control" name="price" step=".01" value="{{ form_data.price }}">
                     </div>
                 </div>
                 <div class="col col-lg-2">
                     <div class="form-group">
                         <label>Product code</label>
-                        <input type="number" class="form-control" value="{{ product.code }}"
-                               name="code">
+                        <input type="number" class="form-control" name="code" value="{{ form_data.code }}">
                     </div>
                 </div>
             </div>
@@ -64,17 +60,17 @@
                     <div class="form-group">
                         <label>Omschrijving</label>
                         <textarea type="number" class="form-control"
-                                  name="description">{{ product.description }}</textarea>
+                                  name="description">{{ form_data.description }}</textarea>
                     </div>
                 </div>
             </div>
             <div class="row pt-4">
                 <div class="col col-lg-6">
-                    <div class="form-group">
+                    <div class="form-group form-buttons">
                         <a href="{% url 'list_product' %}" class="btn btn-secondary">Ga terug</a>
                         <button type="submit" class="btn btn-primary"><img class="button-icon"
-                                                                           src="{% static 'app/img/edit-white.svg' %}"
-                                                                           alt="">Wijzigen
+                                                                           src="{% static 'app/img/plus.svg' %}"
+                                                                           alt="">Toevoegen
                         </button>
                     </div>
                 </div>
@@ -86,7 +82,7 @@
             var output = document.getElementById('output');
             output.src = URL.createObjectURL(event.target.files[0]);
             output.onload = function () {
-                URL.revokeObjectURL(output.src) // free memory
+                URL.revokeObjectURL(output.src)
             }
         };
     </script>

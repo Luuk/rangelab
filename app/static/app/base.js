@@ -1,5 +1,22 @@
 $(document).ready(function () {
+
+    if (localStorage.getItem("menuIsClosed") === null) {
+        localStorage.setItem("menuIsClosed", 'false');
+    } else {
+        if (localStorage.getItem("menuIsClosed") === 'true') {
+            $("#wrapper").addClass("toggled");
+        } else {
+            $("#wrapper").removeClass("toggled");
+        }
+    }
+
     $("#menu-toggle").click(function (e) {
+        if (localStorage.getItem("menuIsClosed") === 'true') {
+            localStorage.setItem("menuIsClosed", 'false');
+        } else {
+            localStorage.setItem("menuIsClosed", 'true');
+        }
+
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });

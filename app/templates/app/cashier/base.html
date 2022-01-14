@@ -1,0 +1,78 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'app/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css"/>
+    <title>Rangelab</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+    <div id="wrapper">
+        <div class="side-icons-bar">
+            <a href="{% url 'list_presence' %}"><img
+                    class="side-icon {% if "presence" in request.path %}active-icon{% endif %}" src="
+                    {% if "presence" in request.path %}{% static 'app/img/presence-active.svg' %} {% else %}{% static 'app/img/presence.svg' %}{% endif %}"
+                    alt=""></a>
+            <a href="{% url 'list_present' %}"><img
+                    class="side-icon {% if "present" in request.path %}active-icon{% endif %}" src="
+                    {% if "present" in request.path %}{% static 'app/img/cashier-active.svg' %} {% else %}{% static 'app/img/cashier.svg' %}{% endif %}"
+                    alt=""></a>
+            <a href="{% url 'logout' %}"><img class="side-icon" src="{% static 'app/img/logout.svg' %}" alt=""></a>
+        </div>
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    {{ request.user.username|capfirst }}
+                </li>
+                <li class="sidebar-brand">
+                    <b>SV Doelbewust</b>
+                </li>
+                <li>
+                    <a href="{% url 'list_presence' %}" {% if "presence" in request.path %}class="active-item"{% endif %}>Aanwezigheid</a>
+                </li>
+                <li>
+                    <a href="{% url 'list_present' %}" {% if "present" in request.path %}class="active-item"{% endif %}>Kassa</a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">Uitloggen</a>
+                </li>
+            </ul>
+        </div>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="#menu-toggle" id="menu-toggle"><img src="{% static 'app/img/hamburger.svg' %}" alt=""></a>
+                        {% block content %}{% endblock content %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    {% block menulessContent %}{% endblock menulessContent %}
+{% endif %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js"></script>
+<script src="{% static 'app/base.js' %}"></script>
+</body>
+</html>

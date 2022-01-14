@@ -33,7 +33,7 @@
                     class="side-icon {% if "products" in request.path %}active-icon{% endif %}" src="
                     {% if "products" in request.path %}{% static 'app/img/products-active.svg' %} {% else %}{% static 'app/img/products.svg' %}{% endif %}"
                     alt=""></a>
-            <a href="{% url 'members' %}"><img
+            <a href="{% url 'list_member' %}"><img
                     class="side-icon {% if "members" in request.path %}active-icon{% endif %}" src="
                     {% if "members" in request.path %}{% static 'app/img/members-active.svg' %} {% else %}{% static 'app/img/members.svg' %}{% endif %}"
                     alt=""></a>
@@ -42,7 +42,7 @@
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li class="sidebar-brand">
-                    {{ request.user.username }}
+                    {{ request.user.username|capfirst }}
                 </li>
                 <li class="sidebar-brand">
                     <b>SV Doelbewust</b>
@@ -54,7 +54,7 @@
                     <a href="{% url 'list_product' %}" {% if "products" in request.path %}class="active-item"{% endif %}>Producten</a>
                 </li>
                 <li>
-                    <a href="{% url 'members' %}"
+                    <a href="{% url 'list_member' %}"
                        {% if "members" in request.path %}class="active-item"{% endif %}>Leden</a>
                 </li>
                 <li>

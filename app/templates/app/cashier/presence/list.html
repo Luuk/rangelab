@@ -1,0 +1,87 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    {% load static %}
+    {% load format_upload_url %}
+    <div class="pt-5">
+        <h2>Aanwezigheid</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <br>
+                <div class="alert alert-primary" role="alert" style="width: 98%">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="datatable-wrapper">
+        <div class="row g-3 align-items-center">
+            <div class="col col-lg-5">
+                <div class="input-group">
+                    <span class="input-group-text"><img
+                            src="{% static 'app/img/search.svg' %}"
+                            alt=""></span>
+                    <input type="text" id="searchbox" class="form-control" placeholder="Zoek leden...">
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="row">
+                    <div class="col-auto">
+                        <span><img style="margin-bottom: 4px; margin-right: 10px;"
+                                   src="{% static 'app/img/information.svg' %}"
+                                   alt=""></i>Selecteer een lid om aanwezig/afwezig the zetten.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="pt-3 detail-subtitle">
+            <p><b>Leden</b></p>
+        </div>
+        <div class="row">
+            {% for member in members %}
+                <div class="col col-lg-2 pb-4" style="min-width: 300px; padding-right: 30px">
+                    <div class="card"
+                         style="text-align: center; {% if member.id in present_member_ids %} background-color: #fdfdfd; {% endif %}">
+                        {% if member.id in present_member_ids %}
+                            <div style="position: relative;">
+                                <img style="position: absolute; top: -18px; right: -18px; background-color: white;"
+                                     src="{% static 'app/img/present.svg' %}" alt="">
+                            </div>
+                        {% endif %}
+                        <div class="datatable-image pt-3">
+                            <div class="datatable-image-cropper" style="width: 130px; height: 130px;">
+                                <img class="datatable-image" src="{% static member.picture|format_upload_url %}"
+                                     alt="">
+                            </div>
+                        </div>
+                        <div class="card-body pt-4">
+                            <h5 class="card-title">{{ member.first_name }} {{ member.last_name }}</h5>
+                            <div class="dropdown dropdown-cashier pt-3">
+                                <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                    Acties
+                                </button>
+                                <ul class="dropdown-menu">
+                                    {% if member.id in present_member_ids %}
+                                        <li><a class="dropdown-item" href="#">Schietbeurt toevoegen</a></li>
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'update_presence' member_id=member.id %}">Afwezig
+                                            zetten</a>
+                                        </li>
+                                    {% else %}
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'update_presence' member_id=member.id %}">Aanwezig
+                                            zetten</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

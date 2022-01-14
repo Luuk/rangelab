@@ -1,9 +1,10 @@
-{% extends "../../app/base.html" %}
+{% extends "../base.html" %}
 
 {% block content %}
     {% load static %}
     {% load format_upload_url %}
-    <div class="pt-4">
+    {% load format_price %}
+    <div class="pt-5">
         <h2>Producten</h2>
         {% if messages %}
             {% for message in messages %}
@@ -61,7 +62,7 @@
                     <td>{{ product.name }}</td>
                     <td>{{ product.description }}</td>
                     <td>{{ product.code }}</td>
-                    <td>€{{ product.price }}</td>
+                    <td>€{{ product.price|format_price }}</td>
                     <td class="datatable-actions">
                         <a href="{% url 'detail_product' id=product.id %}" type="button" class="btn btn-light"><img
                                 class="button-icon"

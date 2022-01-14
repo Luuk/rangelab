@@ -1,0 +1,67 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    {% load static %}
+    {% load format_upload_url %}
+    <div class="pt-5">
+        <h2>Kassa</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <br>
+                <div class="alert alert-primary" role="alert" style="width: 98%">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="datatable-wrapper">
+        <div class="row g-3 align-items-center">
+            <div class="col col-lg-5">
+                <div class="input-group">
+                    <span class="input-group-text"><img
+                            src="{% static 'app/img/search.svg' %}"
+                            alt=""></span>
+                    <input type="text" id="searchbox" class="form-control" placeholder="Zoek aanwezigen...">
+                </div>
+            </div>
+            <div class="col-auto">
+                <div class="row">
+                    <div class="col-auto">
+                        <span><img style="margin-bottom: 4px; margin-right: 10px;"
+                                   src="{% static 'app/img/information.svg' %}"
+                                   alt=""></i>Selecteer een lid om acties uit te voeren.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="pt-3 detail-subtitle">
+            <p><b>Aanwezigen</b></p>
+        </div>
+        <div class="row cashier">
+            {% if not members %}
+            <div style="text-align: center" class="pt-5">
+                Er zijn geen leden aanwezig gemeldt.
+            {% endif %}
+
+            {% for member in members %}
+                <div class="col col-lg-2 pb-4" style="min-width: 300px; padding-right: 30px">
+                    <a href="{% url 'detail_present' member_id=member.id %}">
+                        <div class="card" style="text-align: center;">
+                            <div class="datatable-image pt-3">
+                                <div class="datatable-image-cropper" style="width: 130px; height: 130px;">
+                                    <img class="datatable-image" src="{% static member.picture|format_upload_url %}"
+                                         alt="">
+                                </div>
+                            </div>
+                            <div class="card-body pt-4">
+                                <h5 class="card-title">{{ member.first_name }} {{ member.last_name }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

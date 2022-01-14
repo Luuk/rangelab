@@ -1,0 +1,166 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    {% load static %}
+    {% load format_upload_url %}
+    <div class="pt-5">
+        <div class="row">
+            <div class="col-auto" style="margin-top: 7px;"><a href="{% url 'list_member' %}">
+                <img height="15"
+                     src="{% static 'app/img/arrow-left.svg' %}"
+                     alt=""></a></div>
+            <div class="col-auto"><h2>Lid Toevoegen</h2></div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <br>
+                <div class="alert alert-primary" role="alert" style="width: 98%">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="detail-wrapper pt-5">
+        <form action="{% url 'create_member' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Foto</label>
+                        <br>
+                        <input type="file" accept="image/*" onchange="loadFile(event)" name="picture">
+                        <div class="detail-image">
+                            <img id="output"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-5">
+                <div class="col col-lg-2 detail-subtitle">
+                    <b>NAW gegevens</b>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Voornaam</label>
+                        <input type="text" class="form-control" value="{{ form_data.first_name }}" name="first_name">
+                    </div>
+                </div>
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Achternaam</label>
+                        <input type="text" class="form-control" value="{{ form_data.last_name }}" name="last_name">
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Geboortedatum</label>
+                        <input type="date" class="form-control" value="{{ form_data.birthdate|date:"Y-m-d" }}"
+                               name="birthdate">
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Adres</label>
+                        <input type="text" class="form-control" value="{{ form_data.address }}" name="address">
+                    </div>
+                </div>
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Plaats</label>
+                        <input type="text" class="form-control" value="{{ form_data.city }}" name="city">
+                    </div>
+                </div>
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Postcode</label>
+                        <input type="text" class="form-control" value="{{ form_data.postal_code }}" name="postal_code">
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-5">
+                <div class="col col-lg-2 detail-subtitle">
+                    <b>Club gegevens</b>
+                </div>
+            </div>
+            <div class="row pt-2">
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Lid nummer</label>
+                        <input type="text" class="form-control" value="{{ form_data.club_member_number }}"
+                               name="club_member_number">
+                    </div>
+                </div>
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Datum afgifte VOG</label>
+                        <input type="date" class="form-control" value="{{ form_data.date_of_issue_vog|date:"Y-m-d" }}"
+                               name="date_of_issue_vog">
+                    </div>
+                </div>
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>KNSA lid nummer</label>
+                        <input type="text" class="form-control" value="{{ form_data.knsa_member_number }}"
+                               name="knsa_member_number">
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Aantal schietbeurten</label>
+                        <input type="text" class="form-control" value="{{ form_data.shooting_count }}"
+                               name="shooting_count">
+                    </div>
+                </div>
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Lid sinds</label>
+                        <input type="date" class="form-control" value="{{ form_data.member_since|date:"Y-m-d" }}"
+                               name="member_since">
+                    </div>
+                </div>
+                <div class="col col-lg-2">
+                    <div class="form-group">
+                        <label>Soort lid</label>
+                        <select class="form-select" name="category">
+                            <option selected>Kies...</option>
+                            <option value="1">A</option>
+                            <option value="2">B</option>
+                            <option value="3">C</option>
+                            <option value="4">Hoofdlid</option>
+                            <option value="5">Gezindslid</option>
+                            <option value="6">Donateur</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class="col col-lg-6">
+                    <div class="form-group form-buttons">
+                        <a href="{% url 'list_member' %}" class="btn btn-secondary">Ga terug</a>
+                        <button type="submit" class="btn btn-primary"><img class="button-icon"
+                                                                           src="{% static 'app/img/plus.svg' %}"
+                                                                           alt="">Toevoegen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        var loadFile = function (event) {
+            var output = document.getElementById('output');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src)
+            }
+        };
+    </script>
+{% endblock content %}

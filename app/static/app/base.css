@@ -78,10 +78,6 @@ body {
 /* --- SIDE MENU --- */
 #wrapper {
     padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
 }
 
 #wrapper.toggled {
@@ -96,10 +92,6 @@ body {
     width: 0;
     height: 100%;
     overflow-y: auto;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
     border-style: solid;
     border-width: 1px;
     border-color: var(--grey);
@@ -171,7 +163,7 @@ body {
 }
 
 #menu-toggle img {
-    height: 25px;
+    height: 20px;
 }
 
 @media (min-width: 768px) {
@@ -241,7 +233,7 @@ body {
 .datatable-wrapper {
     padding-left: 5px;
     padding-right: 40px;
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .page-item.active .page-link {
@@ -259,6 +251,11 @@ body {
 
 .button-icon {
     padding-right: 10px;
+    padding-bottom: 3px;
+}
+
+.form-buttons {
+    float: right;
 }
 
 .dataTables_filter {
@@ -287,7 +284,6 @@ tbody tr:hover {
     position: relative;
     overflow: hidden;
     border-radius: 50%;
-
 }
 
 .datatable-image {
@@ -311,3 +307,68 @@ tbody tr:hover {
     height: 150px;
 }
 
+.detail-subtitle {
+    color: #003171;
+    font-size: 18px;
+}
+
+/* --- CASHIER --- */
+.dropdown-cashier button {
+    background-color: #f8f8f8;
+    height: 60px;
+}
+
+.dropdown-cashier button:focus {
+    color: white !important;
+    background-color: var(--blue) !important;
+    border-color: var(--blue) !important;
+}
+
+.dropdown-cashier button, .dropdown-cashier ul {
+    width: 100%;
+}
+
+.dropdown-cashier a {
+    line-height: 52px;
+    height: 60px;
+}
+
+.dropdown-cashier a:focus {
+    background-color: var(--blue) !important;
+}
+
+.buttons-cashier a {
+    padding: 40px;
+    padding-left: 90px;
+    padding-right: 90px;
+}
+
+.buttons-cashier {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.buttons-cashier li {
+    line-height: 70px;
+}
+
+.buttons-cashier a:hover {
+    padding: 40px;
+    padding-left: 90px;
+    padding-right: 90px;
+}
+
+.cashier a {
+    text-decoration: none !important;
+    color: var(--black);
+}
+
+.cashier {
+    transition: 0.1s;
+}
+
+.cashier .card:hover {
+    background-color: #fdfdfd;
+    transition: 0.1s;
+}

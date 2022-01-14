@@ -1,0 +1,123 @@
+{% extends "../base.html" %}
+
+{% block content %}
+    {% load static %}
+    {% load format_upload_url %}
+    <div class="pt-5">
+        <div class="row">
+            <div class="col-auto" style="margin-top: 7px;"><a href="{% url 'list_member' %}">
+                <img height="15"
+                     src="{% static 'app/img/arrow-left.svg' %}"
+                     alt=""></a></div>
+            <div class="col-auto"><h2>Lid Weergeven</h2></div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <br>
+                <div class="alert alert-primary" role="alert" style="width: 98%">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="detail-wrapper pt-5">
+        <div class="datatable-image pt-3">
+            <div class="datatable-image-cropper" style="width: 130px; height: 130px;">
+                <img class="datatable-image" src="{% static member.picture|format_upload_url %}"
+                     alt="">
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col col-lg-2 detail-subtitle">
+                <b>NAW gegevens</b>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col col-lg-2">
+                <b>Voornaam</b>
+                <br>
+                {{ member.first_name }}
+            </div>
+            <div class="col col-lg-2">
+                <b>Achternaam</b>
+                <br>
+                {{ member.last_name }}
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col col-lg-2">
+                <b>Geboortedatum</b>
+                <br>
+                {{ member.birthdate }}
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col col-lg-2">
+                <b>Adres</b>
+                <br>
+                {{ member.address }}
+            </div>
+            <div class="col col-lg-2">
+                <b>Plaats</b>
+                <br>
+                {{ member.city }}
+            </div>
+            <div class="col col-lg-2">
+                <b>Postcode</b>
+                <br>
+                {{ member.postal_code }}
+            </div>
+        </div>
+        <div class="row pt-5">
+            <div class="col col-lg-2 detail-subtitle">
+                <b>Club gegevens</b>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col col-lg-2">
+                <b>Lid nummer</b>
+                <br>
+                {{ member.club_member_number }}
+            </div>
+            <div class="col col-lg-2">
+                <b>Datum afgifte VOG</b>
+                <br>
+                {{ member.date_of_issue_vog }}
+            </div>
+            <div class="col col-lg-2">
+                <b>KNSA lid nummer</b>
+                <br>
+                {{ member.knsa_member_number }}
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col col-lg-2">
+                <b>Aantal schietbeurten</b>
+                <br>
+                {{ member.shooting_count }}
+            </div>
+            <div class="col col-lg-2">
+                <b>Lid sinds</b>
+                <br>
+                {{ member.member_since }}
+            </div>
+            <div class="col col-lg-2">
+                <b>Soort lid</b>
+                <br>
+                {% if member.category == '1' %} A {% endif %}
+                {% if member.category == '2' %} B {% endif %}
+                {% if member.category == '3' %} C {% endif %}
+                {% if member.category == '4' %} Hoofdlid {% endif %}
+                {% if member.category == '5' %} Gezindslid {% endif %}
+                {% if member.category == '6' %} Donateur {% endif %}
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col col-lg-5">
+                <div class="form-buttons">
+                    <a href="{% url 'list_member' %}" class="btn btn-secondary">Ga terug</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
